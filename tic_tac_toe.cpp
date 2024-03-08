@@ -14,21 +14,22 @@ bool isWon(vector<vector<char>>& mat , char a){
     return false;
 }
 int main(){
-    vector<vector<char>> mat(3,vector<char>(3));
+    vector<vector<char>> mat(3,vector<char>(3,' '));
     vector<vector<int>> v(3,vector<int> (3,0));
     for(int i=0;i<3;i++){
         cout<<"-----------------"<<endl;
         for(int j=0;j<3;j++){
-            cout<<"| "<<v[i][j]<<" | ";
+            cout<<"| "<<mat[i][j]<<" | ";
         }
         cout<<endl<<"-----------------"<<endl;
     }
     int turn=1;
-    for(int k=0;k<9;k++){
+    int k;
+    for(k=0;k<9;k++){
         int row,col;
         cout<<"Enter the index in which you want to put your make. (0-Based)"<<endl;
         cin>>row>>col;
-        if(v[row][col]!=0){
+        if(mat[row][col]!=' ' || row>2 || col>2 || row<0 || col<0){
             cout<<"Plese enter a valid position."<<endl;
             break;
         }
@@ -53,18 +54,19 @@ int main(){
                 mat[row][col]='O';
                 v[row][col]=turn;
                 for(int i=0;i<3;i++){
-                cout<<"-----------------"<<endl;
-                for(int j=0;j<3;j++){
-                    cout<<"| "<<mat[i][j]<<" | ";
+                    cout<<"-----------------"<<endl;
+                    for(int j=0;j<3;j++){
+                        cout<<"| "<<mat[i][j]<<" | ";
+                    }
+                    cout<<endl<<"-----------------"<<endl;
                 }
-                cout<<endl<<"-----------------"<<endl;
-            }
                 if(isWon(mat,'O')){
                     cout<<"Player 2 Won the Match."<<endl;
                     break;
                 }
                 turn=1; // Next turn will be Player 1's
             }
+            if(k==8)    cout<<"It's a tie."<<endl;
         }
     }
     cout<<"Thanks for Playing."<<endl;
